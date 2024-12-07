@@ -1,0 +1,35 @@
+services:
+  event-service:
+    image: event-service:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8090:8090"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/eventDB
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_CLOUD_CONSUL_HOST=consul
+      - SPRING_CLOUD_CONSUL_PORT=8500
+    depends_on:
+      - db
+      - consul
+
+  db:
+    image: postgres:17.2
+    environment:
+      POSTGRES_DB: eventDB
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+
+  consul:
+    image: consul:latest
+    container_name: consul
+    ports:
+      - "8500:8500"
+    command: "consul agent -dev -client=0.0.0.0"
+    environment:
+      CONSUL_BIND_INTERFACE: eth0

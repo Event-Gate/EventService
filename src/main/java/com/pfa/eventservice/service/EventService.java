@@ -21,5 +21,7 @@ public interface EventService {
 
     void DeleteEvent(Long id );
 
+    List<Event> getEventsByCategories(String category);
+
 
 }

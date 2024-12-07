@@ -36,6 +36,7 @@ public class EventServiceApplication {
                     .name("Jane Smith")
                     .email("jane.smith@example.com")
                     .build();
+
             creatorRepository.save(creator1);
             creatorRepository.save(creator2);
 

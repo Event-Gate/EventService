@@ -1,5 +1,6 @@
 package com.pfa.eventservice.dao.entities;
 
+import com.pfa.eventservice.dao.entities.enums.Status;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,7 +22,12 @@ public class Event {
     private String name;
     private String location;
     private LocalDateTime eventDate;
+    private Status status ;
 
     @ManyToOne
     private Creator creator ;
+
+    @ManyToOne
+    private Category category ;
+
 }

@@ -2,6 +2,7 @@ package com.pfa.eventservice.service;
 
 import com.pfa.eventservice.dao.entities.Creator;
 import com.pfa.eventservice.dao.entities.Event;
+import com.pfa.eventservice.dao.repositories.CategoryRepository;
 import com.pfa.eventservice.dao.repositories.EventRepository;
 import com.pfa.eventservice.dto.CreatorDto;
 import com.pfa.eventservice.dto.EventDto;
@@ -24,6 +25,8 @@ public class EventServiceImp implements EventService{
 
     @Autowired
     private CreatorService creatorService ;
+    @Autowired
+    private CategoryRepository categoryRepository ;
 
 
 
@@ -73,5 +76,10 @@ public class EventServiceImp implements EventService{
     @Override
     public void DeleteEvent(Long id) {
 
+    }
+
+    @Override
+    public List<Event> getEventsByCategories(String category) {
+        return eventRepository.findEventsByCategoryName(category);
     }
 }
