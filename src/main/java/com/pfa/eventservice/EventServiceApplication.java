@@ -24,24 +24,7 @@ public class EventServiceApplication {
         SpringApplication.run(EventServiceApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner start() {
-        return args -> {
-            Creator creator1 = Creator.builder()
-                    .name("John Doe")
-                    .email("john.doe@example.com")
-                    .build();
-
-            Creator creator2 = Creator.builder()
-                    .name("Jane Smith")
-                    .email("jane.smith@example.com")
-                    .build();
-
-            creatorRepository.save(creator1);
-            creatorRepository.save(creator2);
 
 
-        };
-    }
     }
 

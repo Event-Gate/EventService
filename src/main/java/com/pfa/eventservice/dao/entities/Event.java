@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @AllArgsConstructor
@@ -23,6 +24,8 @@ public class Event {
     private String location;
     private LocalDateTime eventDate;
     private Status status ;
+    private Date created_at ;
+    private Integer capacity;
 
     @ManyToOne
     private Creator creator ;

@@ -43,14 +43,11 @@ public class EventServiceImp implements EventService{
             throw new RuntimeException("Creator not found");
         }
 
-        // Mapper le DTO en entité
         Event event = eventMapper.convertEventDtoToEvent(eventDto);
-        event.setCreator(creator1);  // Associer le créateur à l'événement
+        event.setCreator(creator1);
 
-        // Sauvegarder l'événement dans la base de données
         Event savedEvent = eventRepository.save(event);
 
-        // Retourner l'événement enregistré sous forme de DTO*/
         return eventMapper.convertEventToEventDto(savedEvent);
     }
     @Override
@@ -60,12 +57,12 @@ public class EventServiceImp implements EventService{
 
     @Override
     public List<Event> getAllEvents() {
-        return List.of();
+        return eventRepository.findAll();
     }
 
     @Override
     public EventDto updateEvent(Long id, EventDto eventDto) {
-        return null;
+        return null  ;
     }
 
     @Override
