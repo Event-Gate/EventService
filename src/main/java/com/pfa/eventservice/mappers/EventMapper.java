@@ -1,37 +1,29 @@
 package com.pfa.eventservice.mappers;
 
-import com.pfa.eventservice.dao.entities.Event;
-import com.pfa.eventservice.dto.EventDto;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.pfa.eventservice.dtos.EventRequest;
+import com.pfa.eventservice.entities.Event;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EventMapper {
 
-
-
-    public Event convertEventDtoToEvent(EventDto eventDto)
-    {
-        if (eventDto == null )
-        {
-            return null ;
-        }
-        Event event = new Event() ;
-
-        BeanUtils.copyProperties(eventDto,event);
-        return event ;
-
+    public Event toEntity(EventRequest eventRequest) {
+        return Event.builder()
+                .name(eventRequest.name())
+                .location(eventRequest.location())
+                .date(eventRequest.date())
+                .status(eventRequest.status())
+                .capacity(eventRequest.capacity())
+                .build();
     }
 
-    public EventDto convertEventToEventDto(Event event)
-    {
-        if ( event == null )
-        {
-            return null ;
-        }
-        EventDto eventDto = new EventDto();
-        BeanUtils.copyProperties(event, eventDto);
-        return eventDto ;
+    public EventRequest toRequest(Event event) {
+        return EventRequest.builder()
+                .name(event.getName())
+                .location(event.getLocation())
+                .date(event.getDate())
+                .status(event.getStatus())
+                .capacity(event.getCapacity())
+                .build();
     }
 }
