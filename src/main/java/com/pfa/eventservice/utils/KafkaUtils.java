@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class KafkaUtils {
     private final KafkaTemplate<String, Event> kafkaTemplate;
 
-    @Value("${spring.kafka.topic.name}")
+    @Value("${spring.kafka.topic.event-name}")
     private String topic;
 
     public void sendMessage(Event event, String token) {

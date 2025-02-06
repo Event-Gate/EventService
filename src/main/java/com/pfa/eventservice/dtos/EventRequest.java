@@ -11,6 +11,7 @@ public record EventRequest (
     String location,
     LocalDateTime date,
     Status status,
-    int capacity
+    int capacity,
+    LocalDateTime createdAt
 ) {}
 

@@ -1,15 +1,20 @@
 server:
-  port: 8081
+  port: 8083
 
 spring:
   application:
-    name: EventService
+    name: event-service
   data:
     mongodb:
       uri: mongodb://localhost:27017/event_db
       auto-index-creation: true
   cloud:
     consul:
+      discovery:
+        healthCheckPath: /actuator/health
+        healthCheckInterval: 10s
+        instance-id: ${spring.application.name}:${random.value}
+        service-name: event-service
       host: localhost
       port: 8500
     openfeign:
@@ -22,14 +27,21 @@ spring:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      bootstrap-servers: localhost:9092
+      group-id: event-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+        spring.json.type.mapping: org.pfa.ticket.dtos.EventCapacityRequest:com.pfa.eventservice.dtos.EventCapacityRequest
     topic:
-      name: events-topic
+      event-name: events-topic
+      capacity-name: capacities-topic
 
 jwt:
   secret: ${JWT_SECRET}
-
-user-service:
-  url: http://localhost:8080
 
 logging:
   level:

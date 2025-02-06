@@ -3,7 +3,7 @@ package com.pfa.eventservice.controllers.auth;
 import com.pfa.eventservice.dtos.EventRequest;
 import com.pfa.eventservice.entities.Event;
 import com.pfa.eventservice.exceptions.UnauthorizedException;
-import com.pfa.eventservice.service.interfaces.EventService;
+import com.pfa.eventservice.services.interfaces.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,9 +14,9 @@ public class AuthEventController {
     private final EventService eventService;
 
     @PostMapping("/create")
-    public ResponseEntity<Event> createEvent(@RequestBody EventRequest request, @RequestHeader("Authorization") String header) {
+    public ResponseEntity<Event> createEvent(@RequestBody EventRequest request, @RequestHeader("Authorization") String header) throws UnauthorizedException {
         String token = header.startsWith("Bearer ") ? header.substring(7) : header;
-        return new ResponseEntity<>(eventService.createEvent(request, token), HttpStatus.OK);
+        return new ResponseEntity<>(eventService.createEvent(request, token), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{eventId}")

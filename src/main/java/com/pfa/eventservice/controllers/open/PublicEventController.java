@@ -1,7 +1,7 @@
 package com.pfa.eventservice.controllers.open;
 
 import com.pfa.eventservice.entities.Event;
-import com.pfa.eventservice.service.interfaces.EventService;
+import com.pfa.eventservice.services.interfaces.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
